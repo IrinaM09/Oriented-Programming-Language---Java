@@ -1,1 +1,168 @@
+MITOCARU IRINA
+324CB
 
+						TEMA2 - POO
+
+Main: <class>
+ -create_obs: 
+	-aduce mai intai expresia care trebuie filtrata la un format bun,
+	 si abia apoi il adauga in observator, iar acesta in HashMap-ul de observatori.
+ -feed:
+	-pentru fiecare feed, se verifica prin Shunting-Yard valoarea expresiei (a doua parte a acestui algoritm foloseste VisitorPattern);
+	-daca trebuie adaugat, se apeleaza addFeed;
+	-daca nu trebuie, se apeleaza badFeed (pentru a sti ca nu trebuie printat).
+ 
+ -delete_obs:
+	-sterge observatorul.
+ 
+ -print:
+	-printeaza observatorul.
+
+Operator: <abstract class>
+-returneaza true/false, conform expresiei.
+
+OperatorsFactory: <class> 
+-returneaza una din operatiile:
+		- nil (file NilExpression)
+		- ne  (file NeOperation)
+		- eq  (file EqOperation)
+		- gt  (file GtValue)
+		- ge  (file GeValue)
+		- lt  (file LtValue)
+		- le  (file LeValue)
+
+Nil, ne, eq, gt, ge lt, le: <class> 
+-primesc expresia si feed ul;
+-verifica conditia;
+-returneaza true/false.
+
+HashMapObserver: <class>
+-de tipul hashmap <Integer, Observer>;
+-stocheaza ID-ul (key) si observatorul (value).
+
+Feed: <class>
+-de tipul hashmap <String, Stock>;
+-stocheaza numele stocului (key) si informatiile despre acesta (value).
+
+
+GetFeed: <class>
+ - pastFeed:
+	- adauga feed-urile vechi la observatorul curent,din colectie, daca exista si daca respecta conditia.
+ - currentFeed:
+	- adauga feed-ul curent mai intai intr-o colectie si apoi la fiecare observator, daca e cazul. 
+
+Observer: <class>
+ -fiecare observator are un hashmap de feed-uri si un String[] pentru expresia din input.
+ - badFeed: 
+	-seteaza o variabila, pentru a sti la printare ca trebuie sarit.
+
+ - addFeed:
+	-creeaza un nou feed, daca nu exista deja;
+	-daca exista, il updateaza si il adauga in FeedMap.
+
+ - notify:
+	-verifica daca accepta feed-ul sau nu, prin intermediul lui OperatorsFactory.
+
+ - setString, getString:
+	-pentru manipularea expresiei.
+
+ - printFeed:
+	-sorteaza mai intai cheile;
+	-pentru fiecare feed, verifica daca :
+				-e prima oara cand e printat;
+				-verifica expresia.
+
+ - parseString:
+	-aduce expresia sub forma poloneza inversa - prima parte din Shunting-Yard Algorithm.
+
+ - getQueueResult:
+	-construieste un arbore din prima parte a algoritmului , asupra 
+         caruia se aplica Visitor Pattern.
+
+ParseString: <class>
+ -algoritmul pentru prima parte din Shunting-Yard;
+ -returneaza o coada care contine forma poloneza inversa a expresiei;
+   -currentString: <List>
+	-contine o expresie, care va fi verificata si va returna 1/0;
+	-expresia se formeaza pe parcurs.
+
+   -operatorStack: <Stack>
+	-contine operatori: (, ) , ||, &&
+   
+   -outputStack: <Stack>
+	-contine forma poloneza inversa, dar intr-o stiva.
+ 
+   -reverseStack: <Stack>
+	-returneaza expresia poloneza, dar sub forma de coada.
+
+ -algoritm:
+	- se ia fiecare cuvant in parte din expresie si se verifica ce este;
+	- (, ||, && se pun direct in operatorStack;
+	- la ), se scoate din stiva pana cand se da de (;
+	- cand se gaseste o expresie, i se verifica rezulatul prin metoda notify;
+	- rezultatul ( 1/0 ) se adauga in outputStack;
+	- daca s-a terminat parcugerea si operatorStack mai are elemente, se scot;
+	- se inverseaza outputStack pentru a imita o coada.
+
+PostfixTree: <class>
+- contine nodul root - referinta la arbore;
+- contine expresia din coada returnata la ParseString, mutata intr-un vector;
+  -createTree:
+	-parcurge expresia si verifica daca la indexul curent avem:
+		-operand
+		-operator
+	-operatorii || si && extrag rightNode si leftNode de pe stiva
+	  si se folosesc de VisitorPattern pentru a crea noul sub-nod;
+	-operanzii se pun direct pe stiva, folosind tot VisitorPattern.
+	-ultimul element de pe stiva va contine referinta la arbore.
+
+Stock: <class>
+-contine getteri si setteri pentru:
+	-lastValue:
+		-ultima valoare a unui feed;
+	-fluctuation:
+		-calculeaza fluctuatia;
+	-noChanges:
+		-numarul de aparitii al unui feed;
+	-noPrint:
+		-numarul de printari al unui feed;
+	-donPrint:
+		-verifica daca feed ul trebuie printat sau nu.
+		- 1 = nu trebuie printat
+		- 0 = trebuie printat (default value)
+
+StringFormat: <class>
+-modifica expresia data sub un format bun, folosind regex-uri;
+-mai exact:
+	 adauga spatii dupa paranteze, cuvinte (daca nu este);
+	 elimina spatiile in plus dupa caractere;
+-expresia va avea la final forma:
+ [ ( ( str str str ) && ( str str str ) ) || ( str str str ) ] (un exemplu)
+
+Visitable: <interface>
+-accept: returneaza
+	- 1 = accepta visitatorul
+	- 0 = nu il accepta.
+
+Visitor: <interface>
+-visit:
+	-viziteaza fie un operator ( ||, && ), fie un operand.
+
+OrNode, AndNode: <class>
+-seteaza rightNode si leftNode folosindu-se de constructorul din Node;
+-metoda accept:
+	-returneaza ce va returna metoda visit.
+
+OperandNode: <class>
+-seteaza rightNode si leftNode cu null, iar valoarea cu cea data;
+-metoda accept:
+	-returneaza ce va returna metoda visit.
+
+Node: <class>
+-constructorul seteaza rightNode si leftNode.
+
+Calculator: <class>
+-viziteaza:
+	-operatorul || - returneaza 1/0;
+	-operatorul && - returneaza 1/0;
+	-operandul curent- returneaza valoarea acestuia.
