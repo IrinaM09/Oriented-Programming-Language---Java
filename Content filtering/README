@@ -2,6 +2,38 @@ MITOCARU IRINA
 324CB
 
 						TEMA2 - POO
+-------------------------------------------------------------------------------------------------------------------------------
+						DESCRIERE PROIECT
+
+
+    Lucruri invatate:
+    	- colectii: HashMap, ArrayList, LinkedList, Stack.
+    	- Design Patterns: Visitor, Factory, Singleton.
+
+
+    Avem o retea cu mai multi utilizatori (observers), pentru asta folosim un HashMap<ID, Observers>.
+    Astfel, un observator are un anumit ID. Avem mai multe stiri care vor ajunge la utilizatori, dupa
+    preferinte, deci vom avea si un HashMap<String, Stock>, unde Stock reprezinta o clasa cu informatii despre
+    acea stire (ex: valoarea, fluctuatia, schimbarile).
+    Fiecare utilizator are un feed si o expresie. Aceasta expresie indica ce tipuri de stiri vrea sa primeasca:
+    (exemple de constrangeri: nil / eq name GOLD / le value 4.8 etc).
+
+    Se executa mai multe tipuri de actiuni:
+    	1. create: se adauga un nou observator in HashMap si toate feed-urile vechi (daca exista).
+    	
+    	2. feed: adauga o noua stire in HashMap si apoi o trimite tuturor utilizatorilor care vor stirea.
+    			 In aceasta etapa, expresia este parsata folosind Visitor Pattern.
+    	
+    	3. delete: 	sterge un utilizator
+
+    	4. print:  printeaza feed-urile unui utilizator.
+
+    Operatorii din expresii (nil, ne, qe, le, gt, ge, lt) sunt creati folosind Factory Pattern,
+    iar aceasta fabrica este Singleton.
+
+    Nodurile din expresii (&&, ||) sunt clase folosite in Visitor Pattern.
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 Main: <class>
  -create_obs: 
