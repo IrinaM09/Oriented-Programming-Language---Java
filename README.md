@@ -1,7 +1,7 @@
 # Oriented-Programming-Language---Java
 
 
-					                                    		 DESCRIERE PROIECT
+					     DESCRIERE PROIECT
 				   	         
 	Dintr-un fisier, se citesc:
 	 - un tip de CACHE si capacitatea  -- NoCache, LRU, LFU
@@ -43,10 +43,10 @@ Legatura dintre clase:
 
 
     Fiecare Scheduler foloseste un tip de cache:
-
-
-
-    										 Cache
+	|
+	|
+	|
+    |										 Cache
     |											|
     |				--------------------------------------------------------------
     |				|							|							     |
