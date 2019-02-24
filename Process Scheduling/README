@@ -1,5 +1,9 @@
-					                            		 DESCRIERE PROIECT
+		                   		 DESCRIERE PROIECT
 				   	         
+	Lucruri invatate:
+		- concepte OOP: mostenire, clase abstracte VS. interfete abstracte, polimorfism.
+		- tipuri de schedulers si cache-uri.
+		
 	Dintr-un fisier, se citesc:
 	 - un tip de CACHE si capacitatea  -- NoCache, LRU, LFU
 	 - un tip de scheduler -- Random, RoundRobin, Weigthed 
