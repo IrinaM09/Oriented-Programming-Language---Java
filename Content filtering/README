@@ -8,7 +8,7 @@ MITOCARU IRINA
 
     Lucruri invatate:
     	- colectii: HashMap, ArrayList, LinkedList, Stack.
-    	- Design Patterns: Visitor, Factory, Singleton.
+    	- Design Patterns: Visitor, Factory, Observer, Singleton.
 
 
     Avem o retea cu mai multi utilizatori (observers), pentru asta folosim un HashMap<ID, Observers>.
