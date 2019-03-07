@@ -22,38 +22,36 @@
 
 Legatura dintre clase:
 
-	Process :	---------------------------------------
-				| int number;						  |
-				| abstract int calculate(int number); |
-				---------------------------------------
+	Process :	
+		int number;			  
+		abstract int calculate(int number); 
+				
 
 
-											Process (parent class)
-			 								    |
-	    -----------------------------------------------------------------------------------------
-		|		 	 	|				|		  	  |				|			|				|
-	CheckPrime	 	NextPrime	   	  Cube			Square	   	  Sqrt		Factorial		Fibonacci	(child class)
+						Process (parent class)
+			 								    
+	 			
+	CheckPrime	NextPrime	    Cube	Square	  Sqrt  	Factorial	Fibonacci	(child class)
 
 
 
 
 	Scheduler :
-											Scheduler (parent class)
-												|
-    				----------------------------------------------------------
-    				|							|							 |
-    			  Random   					RoundRobin        			  Weighted   (child class)
+						Scheduler (parent class)
+			
+    				
+    										 
+    		 Random   		RoundRobin        	  Weighted   (child class)
 
 
     Fiecare Scheduler foloseste un tip de cache:
 
 
 
-    										 Cache
-    |											|
-    |				--------------------------------------------------------------
-    |				|							|							     |
-    |--->		 NoCache			LRU(Least recently used)			LFU(Least frequently used)
+    						 Cache
+    
+   																		     |
+    		 NoCache		LRU(Least recently used)		LFU(Least frequently used)
 
 
 NoCache:
